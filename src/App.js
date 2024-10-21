@@ -16,19 +16,15 @@ function App() {
     let lastCharacter = display.slice(-2);
     let operatorsArray = ["+ ", "- ", "* ", "/ "];
 
-    console.log(lastCharacter);
-
     if (display === "" || operatorsArray.includes(lastCharacter)) return;
 
-    setDisplay((prevDisplay) => {
-      return prevDisplay + " " + operator + " ";
-    });
+    setDisplay((prevDisplay) => prevDisplay + " " + operator + " ");
   }
 
   function handleEqual() {
-    if (display.slice(-2).includes("+ ", "- ", "* ", "/ ")) return;
-
-    setDisplay("");
+    // Avoid calculation if the expression ends with an operator
+    let lastCharacter = display.slice(-1);
+    if (["+", "-", "*", "/"].includes(lastCharacter)) return;
 
     try {
       const resultValue = calculate(display);
@@ -40,11 +36,11 @@ function App() {
 
   function calculate(expression) {
     const tokens = expression.split(" ");
-    let resultValue = parseInt(tokens[0]);
+    let resultValue = parseFloat(tokens[0]);
 
     for (let i = 1; i < tokens.length; i += 2) {
       const operator = tokens[i];
-      const nextNumber = parseInt(tokens[i + 1]);
+      const nextNumber = parseFloat(tokens[i + 1]);
 
       switch (operator) {
         case "+":
@@ -57,6 +53,9 @@ function App() {
           resultValue *= nextNumber;
           break;
         case "/":
+          if (nextNumber === 0) {
+            return "Error (Div by 0)";
+          }
           resultValue /= nextNumber;
           break;
         default:
@@ -72,7 +71,9 @@ function App() {
   }
 
   function backspace() {
-    setDisplay(display.slice(0, -1));
+    if (display.length > 0) {
+      setDisplay(display.trim().slice(0, -1));
+    }
   }
 
   return (
