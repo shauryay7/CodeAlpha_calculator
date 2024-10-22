@@ -4,7 +4,7 @@ This is a simple calculator built using React, HTML, CSS, and JavaScript. The ca
 
 ## 🚀 Live Demo
 
-[Link to the live project]([https://your-live-demo-link-here.com](https://calculator-lemon-delta.vercel.app/))
+[Link to the live project](https://your-live-demo-link-here.com](https://calculator-lemon-delta.vercel.app/)
 
 ## 📋 Table of Contents
 
